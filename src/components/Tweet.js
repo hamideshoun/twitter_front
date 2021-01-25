@@ -14,6 +14,7 @@ class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
     //todo: redirect to parent tweet
+    console.log('asdasd');
     this.props.history.push(`/tweet/${id}`);
   };
 

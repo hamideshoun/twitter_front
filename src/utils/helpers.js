@@ -23,3 +23,15 @@ export function formatTweet (tweet, author, authedUser, parentTweet) {
     }
   }
 }
+
+export function formatActivity (activity) {
+  const { type, name, timestamp, text, id } = activity
+
+  return {
+    type,
+    name,
+    timestamp,
+    text,
+    id,
+  }
+}
