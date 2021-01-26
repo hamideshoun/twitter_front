@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Activity from "./Activity";
 
+
 class ActivityPage extends Component{
-    render() {
+
+    render(){
     console.log(this.props);
     return (
       <div>

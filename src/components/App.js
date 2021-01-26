@@ -5,6 +5,7 @@ import { handleInitialData } from "../actions/shared";
 
 import LoadingBar from "react-redux-loading"; //importing the loading bar given by react-redux-loading
 
+import Login from "./Login";
 import Dashboard from "./Dashboard";
 import NewTweet from "./NewTweet";
 import TweetPage from "./TweetPage";
@@ -26,6 +27,8 @@ class App extends Component {
             <Nav />
             {this.props.loading === true ? null : (
               <div>
+                <Route path="/login" component={Login} />
+                {/* <Route path="/register" component={SignUp} /> */}
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/tweet/:id" component={TweetPage} />
                 <Route path="/new" component={NewTweet} />
