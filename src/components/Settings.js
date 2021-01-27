@@ -9,19 +9,15 @@ const inputStyle = {
   padding: '0px 0px 5px 5px',
 };
 
-class Register extends Component{
-    submit = (Username, Email, Password, Password2) => {
+class Settings extends Component{
+    submit = (Username, Password) => {
         if (Username.length < 4){
             alert("usermame must be more than 4 characters");
         }
         else {
-            this.fetchItems(Username, Email, Password, Password2);
+            this.fetchItems(Username, Password);
         }
     }
-
-    // componentDidMount(){
-    //     this.fetchItems();
-    // };
 
     // function to send request and set state = response
     fetchItems = async () => {
@@ -52,4 +48,4 @@ class Register extends Component{
     }
 }
 
-export default Register;
+export default Settings;

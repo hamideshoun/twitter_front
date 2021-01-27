@@ -17,8 +17,12 @@ export default function Nav() {
         </li>
         <li>
           <NavLink to="/activity" activeClassName="active">
-            
             Activity
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/settings" activeClassName="active">
+            Settings
           </NavLink>
         </li>
       </ul>

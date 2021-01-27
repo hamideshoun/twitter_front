@@ -12,6 +12,7 @@ import NewTweet from "./NewTweet";
 import TweetPage from "./TweetPage";
 import Activity from "./ActivityPage";
 import Nav from "./Nav";
+import Settings from "./Settings";
 
 class App extends Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class App extends Component {
                 <Route path="/tweet/:id" component={TweetPage} />
                 <Route path="/new" component={NewTweet} />
                 <Route path="/activity" component={Activity} />
+                <Route path="/settings" component={Settings} />
               </div>
             )}
           </div>
