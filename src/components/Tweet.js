@@ -8,6 +8,8 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 import { TiHeartFullOutline } from "react-icons/ti";
 
+import {FaRetweet} from "react-icons/fa"
+
 import { handleToggleTweet } from "../actions/tweets";
 
 class Tweet extends Component {
@@ -86,6 +88,7 @@ class Tweet extends Component {
               )}
             </button>
             <span>{likes !== 0 && likes} </span>
+            <FaRetweet className="tweet-icon" />
           </div>
         </div>
       </Link>

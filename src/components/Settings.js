@@ -30,7 +30,7 @@ class Settings extends Component{
     render(){
         return(
             <div className="container">
-                <h1 className="center" id="login-header">Register</h1>
+                <h1 className="center" id="login-header">Settings</h1>
                 <form style={{display: 'grid', justifyItems: 'center', alignItems: 'center', alignSelf: 'flex-start'}} id="login-form">
                     <input style={inputStyle} type="text" name="username" id="username-field" className="login-form-field" placeholder="Username" id="username" />
                     <input style={inputStyle} type="text" name="email" id="email-field" className="login-form-field" placeholder="Email" id="email" />
