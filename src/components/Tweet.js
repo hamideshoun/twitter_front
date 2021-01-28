@@ -65,7 +65,7 @@ class Tweet extends Component {
           <div className="tweet-icons">
             <TiArrowBackOutline className="tweet-icon" />
             {/* show number only if it's not zero */}
-            {/* <span>{replies !== 0 && replies} </span> */}
+            <span>{this.state.tweet.replies2.length} </span>
              <button className="heart-button" onClick={this.handleLike}>
               {this.state.tweet.hasLiked ? (
                 <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
@@ -82,7 +82,7 @@ class Tweet extends Component {
                 <FaRetweet className="tweet-icon" />
               )}
             </button>
-            {/* <span>{this.state.tweet.retweets.} </span> */}
+            <span>{this.state.tweet.retweets.count} </span>
           </div>
         </div>
       </Link>

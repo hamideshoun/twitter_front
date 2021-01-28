@@ -22,7 +22,8 @@ class NewTweet extends Component {
     const { text, parent } = this.state;
     post('/tweets/', {text, parent}).then(response => {
       this.setState({text: ''});
-      this.props.history.push(`/tweet/${response.data.id}/`)
+      // alert(`/tweet/${this.state.parent || response.data.id}/`);
+      this.props.history.push('/')
     }).catch(err => {
       if (err.response.status === 401)
         this.props.history.push('/login')
