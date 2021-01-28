@@ -67,13 +67,13 @@ class Home extends React.Component {
                                     <span className="nav-text">Activity</span>
                                 </Link>
                             </Menu.Item>
-                            <Menu.Item id='5' key="5" hidden={this.state.isLogin}>
+                            <Menu.Item id='login_id' key="5" hidden={this.state.isLogin}>
                               <Link to="/login">
                                 <EditRounded />
                                 <span className="nav-text">Login</span>
                               </Link>
                             </Menu.Item>
-                            <Menu.Item id='6' key="6" hidden={!this.state.isLogin}>
+                            <Menu.Item id='logout_id' key="6" hidden={!this.state.isLogin}>
                               <Link to="/login" onClick={()=>this.setState({isLogin: !!!localStorage.getItem('id')})}>
                                 <EditRounded />
                                 <span className="nav-text">Logout</span>
