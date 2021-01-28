@@ -5,7 +5,8 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import NewTweet from "./NewTweet";
 import TweetPage from "./TweetPage";
-// import Activity from "./ActivityPage";
+import Activity from "./ActivityPage";
+import Profile from "./Profile";
 
 import EditRounded from '@material-ui/icons/EditRounded';
 import HomeRounded from '@material-ui/icons/HomeRounded';
@@ -82,7 +83,8 @@ class Home extends React.Component {
                                 <Route path="/" exact component={Dashboard} />
                                 <Route path="/tweet/:id" component={TweetPage} />
                                 <Route path="/new" component={NewTweet} />
-                                {/* <Route path="/activity" component={Activity} /> */}
+                                <Route path="/activity" component={Activity} />
+                                <Route path="/user/:id" component={Profile} />
                             </Switch>
                             </div>
                         </Content>
