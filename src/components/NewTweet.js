@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleAddTweet } from "../actions/tweets";
-
+import { post } from "../utils/axios_with_token"
 import { Redirect } from "react-router-dom";
 
 class NewTweet extends Component {
   state = {
     text: "",
-    toHome: false
+    parent: undefined,
   };
 
   handleChange = e => {
@@ -20,31 +19,18 @@ class NewTweet extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { text } = this.state;
-
-    //if we are at route /new, there is no id, so we are not replying to any tweet
-    //if we are at route /tweet/:id, we are replying to that id
-    const { dispatch, id } = this.props; //if id is a thing, it means we are replying to this id
-
-    //todo: Add tweet to store
-    dispatch(handleAddTweet(text, id));
-    // console.log("New Tweet: ", text);
-
-    //reset state to default
-    this.setState(() => ({
-      text: "",
-      toHome: id ? false : true //if id is a thing, do not redirect, otherwise, you are at /new, so, after submit, redirect back to home
-    }));
+    const { text, parent } = this.state;
+    post('/tweets/', {text, parent}).then(response => {
+      this.props.history.push("/")
+    }).catch(err => {
+      if (err.response.status === 401)
+        this.props.history.push('/login')
+    });
   };
 
   render() {
-    const { text, toHome } = this.state;
+    const { text } = this.state;
     const tweetLeft = 280 - text.length;
-
-    // redirect to home view if submitted from /new
-    if (toHome === true) {
-      return <Redirect to="/" />;
-    }
 
     return (
       <div>
