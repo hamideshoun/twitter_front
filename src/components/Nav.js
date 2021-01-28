@@ -25,6 +25,11 @@ export default function Nav() {
             Settings
           </NavLink>
         </li>
+        <li>
+          <NavLink to='login' activeClassName="active" onClick={()=> localStorage.clear()}>
+            {localStorage.getItem('token') ? 'logout' : 'login'}
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

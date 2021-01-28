@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { get } from './../utils/axios_with_token'
-
+import { a } from '../index'
 const inputStyle = {
   border: 'none',
   borderBottom: '1px solid #3a3a3a',
@@ -41,8 +41,9 @@ class Login extends Component{
             process.env.REACT_APP_HOST + '/users/login/',
             this.state,
         ).then(res => {
-            alert(JSON.stringify(res.data, null, '\t'))
-            localStorage.setItem('token', `Token ${res.data.token}`);
+            let data = res.data
+            localStorage.setItem('token', `Token ${data.token}`);
+            localStorage.setItem('id', data.id)
             this.props.history.push('/')
         }).catch(err => {
             alert(err);
