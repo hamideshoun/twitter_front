@@ -11,7 +11,10 @@ const inputStyle = {
 };
 
 class Register extends Component{
-    submit = (username, email, password, password2, firstname, lastname) => {
+    componentDidMount(){
+        localStorage.clear()
+    }
+    submit = (username, email, password, password2, first_name, last_name) => {
         if (username.length < 4){
             alert("usermame must be more than 4 characters");
         }
@@ -19,16 +22,17 @@ class Register extends Component{
             alert("different passwords");
         }
         else {
-            axios.post(
-                process.env.REACT_APP_HOST + '/users/register/',
+            post(
+                '/users/register/',
                 {
-                    username, email, password, password2, firstname, lastname,
+                    username, email, password, first_name, last_name,
                 },
             ).then(res => {
                 let data = res.data
                 localStorage.setItem('token', `Token ${data.token}`);
                 localStorage.setItem('id', data.id)
-                
+                document.getElementById('login_id').hidden = true
+                document.getElementById('logout_id').hidden = false
                 this.props.history.push('/')
             }).catch(err => {
             alert(err);
@@ -44,7 +48,7 @@ class Register extends Component{
                 <h1 className="center" id="login-header">Register</h1>
                 <form style={{display: 'grid', justifyItems: 'center', alignItems: 'center', alignSelf: 'flex-start'}} id="login-form">
                     <input style={inputStyle} type="text" name="username" className="login-form-field" placeholder="Username" id="username" />
-                    <input style={inputStyle} type="text" name="firstname" className="login-form-field" placeholder="First Name" id="firtname" />
+                    <input style={inputStyle} type="text" name="firstname" className="login-form-field" placeholder="First Name" id="firstname" />
                     <input style={inputStyle} type="text" name="lastname" className="login-form-field" placeholder="Last Name" id="lastname" />
                     <input style={inputStyle} type="text" name="email" className="login-form-field" placeholder="Email" id="email" />
                     <input style={inputStyle} type="password" name="password" className="login-form-field" placeholder="Password" id="password" />

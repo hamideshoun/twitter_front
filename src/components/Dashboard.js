@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {get, post} from "./../utils/axios_with_token"
+import { get } from "./../utils/axios_with_token"
 
 import Tweet from "./Tweet";
 

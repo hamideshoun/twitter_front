@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { post } from "../utils/axios_with_token"
-import { Redirect } from "react-router-dom";
 
 class NewTweet extends Component {
   constructor(props){

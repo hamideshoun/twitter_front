@@ -1,4 +1,4 @@
-import React, { Component , useCallback } from "react";
+import React, { Component } from "react";
 import axios from 'axios';
 
 import { Link } from "react-router-dom";
@@ -23,6 +23,8 @@ class Login extends Component{
 
     componentDidMount(){
         localStorage.clear()
+        document.getElementById('login_id').hidden = false
+        document.getElementById('logout_id').hidden = true
     }
 
     submit = (event) => {
@@ -44,9 +46,6 @@ class Login extends Component{
             let data = res.data
             localStorage.setItem('token', `Token ${data.token}`);
             localStorage.setItem('id', data.id)
-            // useCallback(event => {
-            //     this.props.setIsLogin()
-            //   }, [this.props.setIsLogin])
             document.getElementById('login_id').hidden = true
             document.getElementById('logout_id').hidden = false
             this.props.history.push('/')
@@ -60,8 +59,8 @@ class Login extends Component{
             <div className="container">
                 <h1 className="center" id="login-header">Login</h1>
                 <form style={{display: 'grid', justifyItems: 'center', alignItems: 'center', alignSelf: 'flex-start'}} id="login-form" onSubmit={this.submit}>
-                    <input style={inputStyle} type="text" name="username" id="username-field" className="login-form-field" placeholder="Username" id="username" onChange={(event)=> this.setState({username: event.target.value})} />
-                    <input style={inputStyle} type="password" name="password" id="password-field" className="login-form-field" placeholder="Password" id="password" onChange={(event)=> this.setState({password: event.target.value})}/>
+                    <input style={inputStyle} type="text" name="username" className="login-form-field" placeholder="Username" id="username" onChange={(event)=> this.setState({username: event.target.value})} />
+                    <input style={inputStyle} type="password" name="password" className="login-form-field" placeholder="Password" id="password" onChange={(event)=> this.setState({password: event.target.value})}/>
                     <input style={inputStyle} type="submit" value="Login" id="login-form-submit" />
                 </form>
 

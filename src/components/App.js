@@ -4,10 +4,8 @@ import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
 import NewTweet from "./NewTweet";
-import Tweet from "./Tweet";
 import TweetPage from "./TweetPage";
-import Activity from "./ActivityPage";
-import Settings from "./Settings"
+// import Activity from "./ActivityPage";
 
 import EditRounded from '@material-ui/icons/EditRounded';
 import HomeRounded from '@material-ui/icons/HomeRounded';
@@ -49,12 +47,6 @@ class Home extends React.Component {
                                     <span className="nav-text">Home</span>
                                 </Link>
                             </Menu.Item>
-                            <Menu.Item key="2">
-                                <Link to="/setting">
-                                <EditRounded />
-                                    <span className="nav-text">Setting</span>
-                                </Link>
-                            </Menu.Item>
                             <Menu.Item key="3">
                                 <Link to="/new">
                                 <EditRounded />
@@ -90,8 +82,7 @@ class Home extends React.Component {
                                 <Route path="/" exact component={Dashboard} />
                                 <Route path="/tweet/:id" component={TweetPage} />
                                 <Route path="/new" component={NewTweet} />
-                                <Route path="/activity" component={Activity} />
-                                <Route path="/settings" component={Settings} />
+                                {/* <Route path="/activity" component={Activity} /> */}
                             </Switch>
                             </div>
                         </Content>

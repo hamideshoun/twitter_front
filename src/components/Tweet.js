@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { formatTweet, formatDate } from "../utils/helpers";
-import { Link, withRouter } from "react-router-dom";
+import { formatDate } from "../utils/helpers";
+import { Link } from "react-router-dom";
 
 //importing icons from react-icons
 import { TiArrowBackOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 import { TiHeartFullOutline } from "react-icons/ti";
 
-import { get, patch, post } from "../utils/axios_with_token";
+import { post } from "../utils/axios_with_token";
 
 import {FaRetweet} from "react-icons/fa"
-
-import { handleToggleTweet } from "../actions/tweets";
 
 class Tweet extends Component {
   constructor(props){
@@ -65,7 +62,7 @@ class Tweet extends Component {
           <div className="tweet-icons">
             <TiArrowBackOutline className="tweet-icon" />
             {/* show number only if it's not zero */}
-            <span>{this.state.tweet.replies2.length} </span>
+            {/* <span>{replies !== 0 && replies} </span> */}
              <button className="heart-button" onClick={this.handleLike}>
               {this.state.tweet.hasLiked ? (
                 <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
@@ -82,7 +79,7 @@ class Tweet extends Component {
                 <FaRetweet className="tweet-icon" />
               )}
             </button>
-            <span>{this.state.tweet.retweets.count} </span>
+            {/* <span>{this.state.tweet.retweets.} </span> */}
           </div>
         </div>
       </Link>
