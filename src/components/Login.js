@@ -1,6 +1,8 @@
 import React, { Component , useCallback } from "react";
 import axios from 'axios';
 
+import { Link } from "react-router-dom";
+
 const inputStyle = {
   border: 'none',
   borderBottom: '1px solid #3a3a3a',
@@ -62,6 +64,10 @@ class Login extends Component{
                     <input style={inputStyle} type="password" name="password" id="password-field" className="login-form-field" placeholder="Password" id="password" onChange={(event)=> this.setState({password: event.target.value})}/>
                     <input style={inputStyle} type="submit" value="Login" id="login-form-submit" />
                 </form>
+
+                <Link to={`/register`} className="button">
+                    create an account
+                </Link>
             </div>
         );
     }
