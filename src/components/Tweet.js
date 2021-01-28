@@ -22,9 +22,9 @@ class Tweet extends Component {
 
   handleLike = e => {
     e.preventDefault();
-    post('/tweets/'+ this.props.id + '/likes').then(
+    post('/tweets/'+ this.props.id + '/like').then(
       this.props.dispatch({type: 'LIKE', id: this.props.id})
-    ).catch()
+    ).catch(err => alert(err))
     
 
     //
@@ -46,7 +46,7 @@ class Tweet extends Component {
       likes,
       replies,
       id,
-      parent
+      parentInfo
     } = tweet;
 
     return (
@@ -57,12 +57,12 @@ class Tweet extends Component {
           <div>
             <span>{first_name}</span>
             <div>{formatDate(timestamp)} </div>
-            {parent != null ? (
+            {parentInfo != null ? (
               <button
                 className="replying-to"
-                onClick={e => this.toParent(e, parent.id)}
+                onClick={e => this.toParent(e, parentInfo.id)}
               >
-                Replying to @{parent.id}
+                Replying to @{parentInfo.first_name}
               </button>
             ) : "" }
             <p>{text}</p>

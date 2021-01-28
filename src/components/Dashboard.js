@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
-
+import SearchBar from "../components/SearchBar"
 import Tweet from "./Tweet";
 
 class Dashboard extends Component {
@@ -12,8 +12,9 @@ class Dashboard extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
+      <div className="dashboard">
         <h3 className="center">Your Timeline</h3>
+        <SearchBar />
         <ul className="dashbord-list">
           {this.props.tweetsIds.map(id => (
             <li key={id}>

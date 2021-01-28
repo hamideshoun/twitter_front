@@ -7,7 +7,7 @@ export let post = async (path, data) => {
             url: process.env.REACT_APP_HOST + path,
             data,
             headers: {
-                'Authorization': localStorage.getItem('token'),
+                'Authorization': localStorage.getItem('token') === null ? "": localStorage.getItem('token'),
             },
         }).then(response=> {
             resolve(response);
@@ -20,9 +20,7 @@ export let post = async (path, data) => {
 }
 
 export let get = async (path) => {
-    alert(path)
     let promise = new Promise((resolve , reject) => {
-        alert(process.env.REACT_APP_HOST + path)
         axios({
             method:'get',
             url: process.env.REACT_APP_HOST + path,

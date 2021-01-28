@@ -1,5 +1,4 @@
 import {get, post} from './axios_with_token'
-const axios = require('axios').default;
 // const axios = require('axios').default;
 let users = {
   sarah_edo: {
@@ -206,7 +205,7 @@ let tweets = {
 }
 
 export async function _getUsers () {
-  return await axios.get(process.env.REACT_APP_HOST + '/users/').then(response => response.data).then(users => {
+  return await get('/users/').then(response => response.data).then(users => {
     let dict = {};
     users.forEach(user => {
       dict[user.id] = {
@@ -220,23 +219,22 @@ export async function _getUsers () {
         email: user.email,
       }
     });
-    console.log("users dict:", dict, "\n\n");
+    // console.log("users dict:", dict, "\n\n");
     return dict;
   });
 }
 
 export async function _getTweets () {
-  return await axios.get(process.env.REACT_APP_HOST + '/tweets/').then(response => {
+  return await get('/tweets/').then(response => {
     // console.log("tweest are:\n", response.data, "\n")
     return response.data.map(tweet => convTweetToClient(tweet));
   }).then(tweets => {
     let dict = {};
     tweets.forEach(tweet => {
       dict[tweet.id] = tweet
-      if(tweet.replies.length > 0)
-        console.log("replied tweet: ", tweet); 
+      
     });
-   
+    console.log("tweets: ", tweets, "\n")
     return dict;
   });
 }
@@ -252,7 +250,7 @@ function convTweetToClient(tweet){
       likes: tweet.likes.users.map(user => user.id),
       replies: tweet.replies,
       id: tweet.id,
-      parent: tweet.parent? tweet.parent.id : null  }
+      parent: tweet.parent  }
 }
 
 export function _saveLikeToggle ({ id, hasLiked, authedUser }) {

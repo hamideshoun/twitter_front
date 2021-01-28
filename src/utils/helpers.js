@@ -15,7 +15,7 @@ export function formatTweet (tweets, tweet) {
     replies,
     likes,
     hasLiked: hasLiked,
-    parent: parent == null || tweets[parent] == null ? null : {
+    parentInfo: parent == null || tweets[parent] == null ? null : {
       first_name: tweets[parent].first_name,
       id: id,
     },

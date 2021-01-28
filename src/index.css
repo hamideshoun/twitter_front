@@ -48,15 +48,23 @@ a {
   font-weight: bold;
 }
 
+.left {
+  float: left;
+}
+
+.left::after {
+  clear: both;
+}
+
 .nav ul {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   text-decoration: none;
 }
 
 .nav li:first-child {
-  padding-left: 0;
+  padding-left: -30;
 }
 
 ul {
@@ -73,6 +81,38 @@ li {
   height: 50px;
   border-radius: 25px;
   margin: 10px;
+}
+
+.dashboard {
+  float:left;
+  margin-left: 40px;
+}
+
+.nav {
+  position: fixed;
+  font-size: 20px;
+  margin-left: -120px;
+}
+
+.search-bar {
+  float: right;
+  margin: 5px auto;
+}
+.search-bar::after {
+  clear: both;
+}
+
+.search-input{
+  margin-right: 5px;
+}
+
+.search-input {
+
+}
+
+.seaarch-button {
+  width:fit-content;
+  margin-right: 20px;
 }
 
 .tweet {

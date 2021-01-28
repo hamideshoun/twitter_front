@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Nav() {
   return (
-    <nav className="nav">
+    <nav className="nav left">
       <ul>
         <li>
           <NavLink to="/" exact activeClassName="active">
@@ -20,13 +20,15 @@ export default function Nav() {
             Activity
           </NavLink>
         </li>
+        { localStorage.getItem("id") !== null &&
         <li>
-          <NavLink to='profile' activeClassName="active">
-            Profile
+          <NavLink to='/settings' activeClassName="active">
+            Settings
           </NavLink>
         </li>
+        }
         <li>
-          <NavLink to='login' activeClassName="active" onClick={()=> localStorage.clear()}>
+          <NavLink to='/login' activeClassName="active" onClick={()=> localStorage.clear()}>
             {localStorage.getItem('token') ? 'logout' : 'login'}
           </NavLink>
         </li>
