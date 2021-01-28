@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component , useCallback } from "react";
 import axios from 'axios';
-import { get } from './../utils/axios_with_token'
-import { a } from '../index'
+
 const inputStyle = {
   border: 'none',
   borderBottom: '1px solid #3a3a3a',
@@ -20,6 +19,10 @@ class Login extends Component{
         }
     }
 
+    componentDidMount(){
+        localStorage.clear()
+    }
+
     submit = (event) => {
         if (this.state.username.length < 4){
             alert("usermame must be more than 4 characters");
@@ -28,12 +31,7 @@ class Login extends Component{
             this.login(event);
         }
     }
-
-    // componentDidMount(){
-    //     this.fetchItems();
-    // };
-
-    // function to send request and set state = response
+    
     login = async (event) => {
         event.preventDefault();
 
@@ -44,6 +42,11 @@ class Login extends Component{
             let data = res.data
             localStorage.setItem('token', `Token ${data.token}`);
             localStorage.setItem('id', data.id)
+            // useCallback(event => {
+            //     this.props.setIsLogin()
+            //   }, [this.props.setIsLogin])
+            document.getElementById('5').hidden = true
+            document.getElementById('6').hidden = false
             this.props.history.push('/')
         }).catch(err => {
             alert(err);

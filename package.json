@@ -4,17 +4,31 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
-    "bootstrap": "^4.6.0",
-    "react": "^16.2.0",
     "react-bootstrap": "^1.4.3",
-    "react-dom": "^16.2.0",
     "react-icons": "^3.2.2",
     "react-redux": "^5.1.0",
     "react-redux-loading": "^1.0.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
+    "@syncfusion/ej2-react-lists": "^18.1.53",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "antd": "^4.3.0",
+    "bootstrap": "^4.5.0",
+    "dotenv": "^8.2.0",
+    "http-proxy-middleware": "^1.0.4",
+    "install": "^0.13.0",
+    "material-ui": "^0.20.2",
+    "mdbreact": "^4.27.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-google-maps": "^9.4.5",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-select": "^3.1.0"
   },
   "devDependencies": {
     "@types/javascript-time-ago": "^2.0.1",
@@ -41,5 +55,17 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
