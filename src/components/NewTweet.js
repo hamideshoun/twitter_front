@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { post } from "../utils/axios_with_token"
 import { Redirect } from "react-router-dom";
-
 class NewTweet extends Component {
   state = {
     text: "",
@@ -23,6 +22,7 @@ class NewTweet extends Component {
     post('/tweets/', {text, parent}).then(response => {
       this.props.history.push("/")
     }).catch(err => {
+      alert(err);
       if (err.response.status === 401)
         this.props.history.push('/login')
     });

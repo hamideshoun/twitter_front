@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
-
 import LoadingBar from "react-redux-loading"; //importing the loading bar given by react-redux-loading
 
 import Login from "./Login";
@@ -13,9 +12,9 @@ import TweetPage from "./TweetPage";
 import Activity from "./ActivityPage";
 import Nav from "./Nav";
 import Settings from "./Settings";
-
 class App extends Component {
   componentDidMount() {
+    console.log("hiiiiii")
     this.props.dispatch(handleInitialData());
   }
 
@@ -31,7 +30,7 @@ class App extends Component {
               <div>
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
-                <Route path="/" exact component={Dashboard} />
+                <Route path="/" exact component={Dashboard} time={new Date()}/>
                 <Route path="/tweet/:id" component={TweetPage} />
                 <Route path="/new" component={NewTweet} />
                 <Route path="/activity" component={Activity} />
