@@ -206,7 +206,7 @@ let tweets = {
 }
 
 export async function _getUsers () {
-  return await axios.get('http://192.168.1.160:8000/users/').then(response => response.data).then(users => {
+  return await axios.get(process.env.REACT_APP_HOST + '/users/').then(response => response.data).then(users => {
     let dict = {};
     users.forEach(user => {
       dict[user.id] = {
@@ -226,13 +226,17 @@ export async function _getUsers () {
 }
 
 export async function _getTweets () {
-  return await axios.get('http://192.168.1.160:8000/tweets/').then(response => {
+  return await axios.get(process.env.REACT_APP_HOST + '/tweets/').then(response => {
     // console.log("tweest are:\n", response.data, "\n")
     return response.data.map(tweet => convTweetToClient(tweet));
   }).then(tweets => {
     let dict = {};
-    tweets.forEach(tweet => dict[tweet.id] = tweet);
-    
+    tweets.forEach(tweet => {
+      dict[tweet.id] = tweet
+      if(tweet.replies.length > 0)
+        console.log("replied tweet: ", tweet); 
+    });
+   
     return dict;
   });
 }
@@ -246,10 +250,9 @@ function convTweetToClient(tweet){
       text: tweet.text,
       hasLiked: tweet.hasLiked,
       likes: tweet.likes.users.map(user => user.id),
-      replies: [],
+      replies: tweet.replies,
       id: tweet.id,
-      parent: tweet.parent,
-  }
+      parent: tweet.parent? tweet.parent.id : null  }
 }
 
 export function _saveLikeToggle ({ id, hasLiked, authedUser }) {

@@ -6,6 +6,7 @@ import { showLoading, hideLoading } from "react-redux-loading";
 export const RECEIVE_TWEETS = "RECEIVE_TWEETS";
 export const TOGGLE_TWEET = "TOGGLE_TWEET";
 export const ADD_TWEET = "ADD_TWEET";
+export const LIKE = "LIKE";
 
 function addTweet(tweet) {
   return {

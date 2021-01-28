@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { post } from "../utils/axios_with_token"
+import { patch, post } from "../utils/axios_with_token"
 const inputStyle = {
   border: 'none',
   borderBottom: '1px solid #3a3a3a',
@@ -22,7 +22,7 @@ class Profile extends Component{
     }
 
     updateProfile = async (firstName, lastName, email, password) => {
-        post(process.env.REACT_APP_HOST + '/users/profile/', {
+        patch('/users/profile/', {
             first_name: firstName,
             last_name: lastName,
             email: email,

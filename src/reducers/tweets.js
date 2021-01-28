@@ -1,7 +1,16 @@
-import { RECEIVE_TWEETS, TOGGLE_TWEET, ADD_TWEET } from "../actions/tweets";
+import { RECEIVE_TWEETS, TOGGLE_TWEET, ADD_TWEET, LIKE } from "../actions/tweets";
 
 export default function tweets(state = {}, action) {
   switch (action.type) {
+    case LIKE:
+      alert("kir to ")
+      return {
+        ...state,
+        [action.id]: {
+        ...state[action.id],
+        hasLiked: true
+        }
+      }
     case RECEIVE_TWEETS:
       return {
         ...state,

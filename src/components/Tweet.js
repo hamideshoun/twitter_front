@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { formatTweet, formatDate } from "../utils/helpers";
 import { Link, withRouter } from "react-router-dom";
-
+import {post} from "../utils/axios_with_token"
 //importing icons from react-icons
 import { TiArrowBackOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
@@ -11,28 +11,21 @@ import { TiHeartFullOutline } from "react-icons/ti";
 import {FaRetweet} from "react-icons/fa"
 
 import { handleToggleTweet } from "../actions/tweets";
+import axios from "axios";
 
 class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
     //todo: redirect to parent tweet
-    console.log('asdasd');
-    this.props.history.push(`/tweet/${id}`);
+    this.props.history.push(`/`);
   };
 
   handleLike = e => {
     e.preventDefault();
-
-    const { tweet } = this.props;
-
-    //dispatching the action creator
-    // dispatch(
-    //   handleToggleTweet({
-    //     id: tweet.id,
-    //     hasLiked: tweet.hasLiked,
-    //     authedUser
-    //   })
-    // );
+    post('/tweets/'+ this.props.id + '/likes').then(
+      this.props.dispatch({type: 'LIKE', id: this.props.id})
+    ).catch()
+    
 
     //
   };
@@ -69,7 +62,7 @@ class Tweet extends Component {
                 className="replying-to"
                 onClick={e => this.toParent(e, parent.id)}
               >
-                Replying to @{parent.first_name}
+                Replying to @{parent.id}
               </button>
             ) : "" }
             <p>{text}</p>

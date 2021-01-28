@@ -3,10 +3,16 @@ import { connect } from "react-redux";
 import { post } from "../utils/axios_with_token"
 import { Redirect } from "react-router-dom";
 class NewTweet extends Component {
-  state = {
-    text: "",
-    parent: undefined,
-  };
+
+
+  constructor(props){
+    super(props)
+    // alert(JSON.stringify(props , null , '\t'))
+    this.state = { 
+      text: "",
+      parent: this.props.id || undefined,
+    };
+  }
 
   handleChange = e => {
     const text = e.target.value;
@@ -20,11 +26,14 @@ class NewTweet extends Component {
     e.preventDefault();
     const { text, parent } = this.state;
     post('/tweets/', {text, parent}).then(response => {
-      this.props.history.push("/")
+      // alert(JSON.stringify(response, null, '\t'))
+      if (this.props.history)
+        this.props.history.push("/")
     }).catch(err => {
       alert(err);
       if (err.response.status === 401)
-        this.props.history.push('/login')
+        if (this.props.history)
+          this.props.history.push('/login')
     });
   };
 
