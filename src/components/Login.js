@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import { get } from './../utils/axios_with_token'
 
 const inputStyle = {
   border: 'none',
@@ -10,20 +12,20 @@ const inputStyle = {
 };
 
 class Login extends Component{
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         password: "",
-    //         username: "",
-    //     }
-    // }
+    constructor(props){
+        super(props);
+        this.state = {
+            password: "",
+            username: "",
+        }
+    }
 
-    submit = (Username, Password) => {
-        if (Username.length < 4){
+    submit = (event) => {
+        if (this.state.username.length < 4){
             alert("usermame must be more than 4 characters");
         }
         else {
-            this.fetchItems(Username, Password);
+            this.login(event);
         }
     }
 
@@ -32,24 +34,29 @@ class Login extends Component{
     // };
 
     // function to send request and set state = response
-    fetchItems = async () => {
-        const data = await fetch(
-            {}
-        );
-        const items = await data.json();
+    login = async (event) => {
+        event.preventDefault();
+
+        await axios.post(
+            process.env.REACT_APP_HOST + '/users/login/',
+            this.state,
+        ).then(res => {
+            alert(JSON.stringify(res.data, null, '\t'))
+            localStorage.setItem('token', `Token ${res.data.token}`);
+            this.props.history.push('/')
+        }).catch(err => {
+            alert(err);
+        })
     };
 
     render(){
         return(
             <div className="container">
                 <h1 className="center" id="login-header">Login</h1>
-                <form style={{display: 'grid', justifyItems: 'center', alignItems: 'center', alignSelf: 'flex-start'}} id="login-form">
-                    <input style={inputStyle} type="text" name="username" id="username-field" className="login-form-field" placeholder="Username" id="username" />
-                    <input style={inputStyle} type="password" name="password" id="password-field" className="login-form-field" placeholder="Password" id="password" />
-                    <input style={inputStyle} type="button" value="Login" id="login-form-submit"
-                        onClick={() => this.submit(document.getElementById("username").value, 
-                                    document.getElementById("password").value)} 
-                    />
+                <form style={{display: 'grid', justifyItems: 'center', alignItems: 'center', alignSelf: 'flex-start'}} id="login-form" onSubmit={this.submit}>
+                    <input style={inputStyle} type="text" name="username" id="username-field" className="login-form-field" placeholder="Username" id="username" onChange={(event)=> this.setState({username: event.target.value})} />
+                    <input style={inputStyle} type="password" name="password" id="password-field" className="login-form-field" placeholder="Password" id="password" onChange={(event)=> this.setState({password: event.target.value})}/>
+                    <input style={inputStyle} type="submit" value="Login" id="login-form-submit" />
                 </form>
             </div>
         );
