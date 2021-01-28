@@ -1,4 +1,6 @@
+import {get, post} from './axios_with_token'
 const axios = require('axios').default;
+// const axios = require('axios').default;
 let users = {
   sarah_edo: {
     id: "sarah_edo",
@@ -276,33 +278,16 @@ function formatTweet ({ author, text, replyingTo = null }) {
     replies: [],
     text,
     timestamp: Date.now(),
-    replyingTo,
+    parent: replyingTo,
   }
 }
 
-export function _saveTweet ({ text, author, replyingTo }) {
+export let _saveTweet = ({ text, author, replyingTo }) => {
   return new Promise((res, rej) => {
     const formattedTweet = formatTweet({
       text,
       author,
       replyingTo
     })
-
-    setTimeout(() => {
-      tweets = {
-        ...tweets,
-        [formattedTweet.id]: formattedTweet,
-      }
-
-      users = {
-        ...users,
-        [author]: {
-          ...users[author],
-          tweets: users[author].tweets.concat([formattedTweet.id])
-        }
-      }
-
-      res(formattedTweet)
-    }, 1000)
   })
 }

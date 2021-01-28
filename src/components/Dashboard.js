@@ -28,7 +28,7 @@ function mapStateToProps({ tweets }) {
     tweetsIds: Object.keys(tweets).sort(
       //sorting from the newest to the oldest tweet
       //If compareFunction(a, b) is greater than 0, sort b to an index lower than a, i.e. b comes first.
-      (a, b) => tweets[b].timestamp - tweets[a].timestamp
+      (a, b) => tweets[b].id - tweets[a].id
     )
   };
 }

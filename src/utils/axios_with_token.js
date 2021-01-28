@@ -12,6 +12,7 @@ export let post = async (path, data) => {
         }).then(response=> {
             resolve(response);
         }).catch(err => {
+            alert(err)
             reject(err);
         })
     })
@@ -31,6 +32,7 @@ export let get = async (path) => {
         }).then(response=> {
             resolve(response);
         }).catch(err => {
+            alert(err);
             reject(err);
         })
     })
@@ -49,6 +51,7 @@ export let patch = async (path, data) => {
         }).then(response=> {
             resolve(response);
         }).catch(err => {
+            alert(err);
             reject(err);
         })
     })
