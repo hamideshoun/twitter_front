@@ -1,19 +1,33 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import {get, post} from "./../utils/axios_with_token"
 
 import Tweet from "./Tweet";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tweets: []
+    }
+  }
+  componentDidMount(){
+    get(`/tweets/`).then(response => {
+      let tweets = response.data;
+      this.setState({tweets});
+    }).catch(err => {
+      alert(err);
+    })
+  }
   render() {
-    console.log(this.props);
+    if (!this.state.tweets)
+      return <h1>Loading</h1>
     return (
       <div>
         <h3 className="center">Your Timeline</h3>
         <ul className="dashbord-list">
-          {this.props.tweetsIds.map(id => (
-            <li key={id}>
-              {/* <div>TWEET ID: {id} </div> */}
-              <Tweet id={id} />
+          {this.state.tweets.map(tweet => (
+            <li key={tweet}>
+              <Tweet tweet={tweet} />
             </li>
           ))}
         </ul>
@@ -22,15 +36,4 @@ class Dashboard extends Component {
   }
 }
 
-//destructuring tweets from state
-function mapStateToProps({ tweets }) {
-  return {
-    tweetsIds: Object.keys(tweets).sort(
-      //sorting from the newest to the oldest tweet
-      //If compareFunction(a, b) is greater than 0, sort b to an index lower than a, i.e. b comes first.
-      (a, b) => tweets[b].id - tweets[a].id
-    )
-  };
-}
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
