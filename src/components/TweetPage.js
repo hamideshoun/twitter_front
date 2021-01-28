@@ -1,43 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { get } from "../utils/axios_with_token"
 
 import Tweet from "./Tweet";
 import NewTweet from "./NewTweet";
 
 class TweetPage extends Component {
-  render() {
-    const { id, replies } = this.props;
+  constructor(props){
+      super(props);
+      this.state = {
+        tweet: {}
+      }
+    };
 
+    componentDidMount() {
+      get (`/tweets/${this.props.match.params.id}`).then(response =>  {
+        let tweet = response.data;
+        this.setState({
+          tweet
+        });
+        console.log(tweet)
+      });
+    }
+
+  render() {
+    if (!this.state.tweet.id)
+      return <h1>loading...</h1>
     return (
       <div>
-        <Tweet id={id} />
+        <Tweet tweet={this.state.tweet} />
         {/* passing the parent tweet id */}
-        <NewTweet id={id} />
+        <NewTweet id={this.state.tweet.id} />
 
-        {replies.length !== 0 && <h3 className="center">Replies</h3>}
+        {/* {replies.length !== 0 && <h3 className="center">Replies</h3>}
         <ul>
           {replies.map(replyId => (
             <li key={replyId}>
               <Tweet id={replyId} />
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     );
   }
 }
 
-function mapStateToProps({ authedUser, tweets, users }, props) {
-  const { id } = props.match.params;
 
-  return {
-    id,
-    replies: !tweets[id]
-      ? [] //if doesn't exist a tweet with this id, the reply will be an empty array
-      : tweets[id].replies.sort(
-          (a, b) => tweets[b].timestamp - tweets[a].timestamp
-        )
-  };
-}
-
-export default connect(mapStateToProps)(TweetPage);
+export default TweetPage;

@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
 import NewTweet from "./NewTweet";
+import Tweet from "./Tweet";
 import TweetPage from "./TweetPage";
 import Activity from "./ActivityPage";
 import Settings from "./Settings"

@@ -8,86 +8,56 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 import { TiHeartFullOutline } from "react-icons/ti";
 
+import { get } from "../utils/axios_with_token";
+
 import {FaRetweet} from "react-icons/fa"
 
 import { handleToggleTweet } from "../actions/tweets";
 
 class Tweet extends Component {
-  toParent = (e, id) => {
-    e.preventDefault();
-    //todo: redirect to parent tweet
-    console.log('asdasd');
-    this.props.history.push(`/tweet/${id}`);
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      tweet: props.tweet,
+    };
+  }
 
-  handleLike = e => {
-    e.preventDefault();
-
-    const { dispatch, tweet, authedUser } = this.props;
-
-    //dispatching the action creator
-    dispatch(
-      handleToggleTweet({
-        id: tweet.id,
-        hasLiked: tweet.hasLiked,
-        authedUser
-      })
-    );
-
-    //
-  };
 
   render() {
     console.log(this.props);
-    const { tweet } = this.props;
-
-    if (tweet === null) {
-      return <p>This tweet doesn't exist</p>;
-    }
-
-    const {
-      name,
-      avatar,
-      timestamp,
-      text,
-      hasLiked,
-      likes,
-      replies,
-      id,
-      parent
-    } = tweet;
+    
 
     return (
-      <Link to={`/tweet/${id}`} className="tweet">
-        <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
+      <Link to={`/tweet/${this.state.tweet.id}`} className="tweet">
+        <img src={this.state.tweet.user.avatar} alt={`Avatar of ${this.state.tweet.name}`} className="avatar" />
 
         <div className="tweet-info">
           <div>
-            <span>{name}</span>
-            <div>{formatDate(timestamp)} </div>
-            {parent && (
+            <span>{this.state.tweet.name}</span>
+            <div>{formatDate(this.state.tweet.created)} </div>
+            {/* {parent && (
               <button
                 className="replying-to"
                 onClick={e => this.toParent(e, parent.id)}
               >
                 Replying to @{parent.author}
               </button>
-            )}
-            <p>{text}</p>
+            )} */}
+            <p>{this.state.tweet.text}</p>
           </div>
 
           <div className="tweet-icons">
             <TiArrowBackOutline className="tweet-icon" />
             {/* show number only if it's not zero */}
-            <span>{replies !== 0 && replies} </span>
-            <button className="heart-button" onClick={this.handleLike}>
-              {hasLiked === true ? (
+            {/* <span>{replies !== 0 && replies} </span> */}
+             <button className="heart-button" onClick={()=>console.log('like')}>
+              {this.state.tweet.hasLiked ? (
                 <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
               ) : (
                 <TiHeartOutline className="tweet-icon" />
               )}
             </button>
-            <span>{likes !== 0 && likes} </span>
+            <span>{this.state.tweet.likes.count} </span>
             <FaRetweet className="tweet-icon" />
           </div>
         </div>
@@ -96,18 +66,5 @@ class Tweet extends Component {
   }
 }
 
-//id comes from the props passed by a parent component
-function mapStateToProps({ authedUser, users, tweets }, { id }) {
-  const tweet = tweets[id]; //getting the specific tweet by its id
-  const parentTweet = tweet ? tweets[tweet.replyingTo] : null; //check if the specific tweet is a reply to another one. If so, get information about that parent tweet
-
-  return {
-    authedUser,
-    tweet: tweet //making sure a tweet exists
-      ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
-      : null
-  };
-}
-
 //using withRouter because this component is not being rendered by react router, so to have access to history props, we need to use withRouter
-export default withRouter(connect(mapStateToProps)(Tweet));
+export default Tweet;
