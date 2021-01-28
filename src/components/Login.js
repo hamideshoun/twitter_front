@@ -47,8 +47,8 @@ class Login extends Component{
             // useCallback(event => {
             //     this.props.setIsLogin()
             //   }, [this.props.setIsLogin])
-            document.getElementById('5').hidden = true
-            document.getElementById('6').hidden = false
+            document.getElementById('login_id').hidden = true
+            document.getElementById('logout_id').hidden = false
             this.props.history.push('/')
         }).catch(err => {
             alert(err);
