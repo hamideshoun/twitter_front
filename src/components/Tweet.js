@@ -8,7 +8,7 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 import { TiHeartFullOutline } from "react-icons/ti";
 
-import { get } from "../utils/axios_with_token";
+import { get, patch, post } from "../utils/axios_with_token";
 
 import {FaRetweet} from "react-icons/fa"
 
@@ -22,6 +22,22 @@ class Tweet extends Component {
     };
   }
 
+
+  handleLike = e => {
+    post(`/tweets/${this.state.tweet.id}/like`, {}).then(response => {
+      this.setState({
+        tweet: response.data,
+      });
+    });
+  };
+
+  handleRetweet = e => {
+    post(`/tweets/${this.state.tweet.id}/retweet`, {}).then(response => {
+      this.setState({
+        tweet: response.data,
+      });
+    });
+  };
 
   render() {
     console.log(this.props);
@@ -50,7 +66,7 @@ class Tweet extends Component {
             <TiArrowBackOutline className="tweet-icon" />
             {/* show number only if it's not zero */}
             {/* <span>{replies !== 0 && replies} </span> */}
-             <button className="heart-button" onClick={()=>console.log('like')}>
+             <button className="heart-button" onClick={this.handleLike}>
               {this.state.tweet.hasLiked ? (
                 <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
               ) : (
@@ -58,7 +74,15 @@ class Tweet extends Component {
               )}
             </button>
             <span>{this.state.tweet.likes.count} </span>
-            <FaRetweet className="tweet-icon" />
+
+            <button className="heart-button" onClick={this.handleRetweet}>
+              {this.state.tweet.hasRetweeted ? (
+                <FaRetweet color="#e0245e" className="tweet-icon" />
+              ) : (
+                <FaRetweet className="tweet-icon" />
+              )}
+            </button>
+            {/* <span>{this.state.tweet.retweets.} </span> */}
           </div>
         </div>
       </Link>
