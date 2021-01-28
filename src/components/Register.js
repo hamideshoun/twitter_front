@@ -35,6 +35,7 @@ class Register extends Component{
             password: password,
         }).then(response => {
             localStorage.setItem('token', `Token ${response.data.token}`);
+            localStorage.setItem('id', response.data.id);
             this.props.history.push('/')
         }).catch(err => alert(err))
         

@@ -9,6 +9,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import NewTweet from "./NewTweet";
 import TweetPage from "./TweetPage";
+import Profile from "./Profile";
 import Activity from "./ActivityPage";
 import Nav from "./Nav";
 import Settings from "./Settings";
@@ -33,6 +34,7 @@ class App extends Component {
                 <Route path="/" exact component={Dashboard} time={new Date()}/>
                 <Route path="/tweet/:id" component={TweetPage} />
                 <Route path="/new" component={NewTweet} />
+                <Route path="/Profile" component={Profile} />
                 <Route path="/activity" component={Activity} />
                 <Route path="/settings" component={Settings} />
               </div>

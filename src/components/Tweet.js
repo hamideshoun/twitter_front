@@ -23,16 +23,16 @@ class Tweet extends Component {
   handleLike = e => {
     e.preventDefault();
 
-    const { dispatch, tweet, authedUser } = this.props;
+    const { tweet } = this.props;
 
     //dispatching the action creator
-    dispatch(
-      handleToggleTweet({
-        id: tweet.id,
-        hasLiked: tweet.hasLiked,
-        authedUser
-      })
-    );
+    // dispatch(
+    //   handleToggleTweet({
+    //     id: tweet.id,
+    //     hasLiked: tweet.hasLiked,
+    //     authedUser
+    //   })
+    // );
 
     //
   };
@@ -45,7 +45,7 @@ class Tweet extends Component {
     }
 
     const {
-      name,
+      first_name,
       avatar,
       timestamp,
       text,
@@ -58,27 +58,27 @@ class Tweet extends Component {
 
     return (
       <Link to={`/tweet/${id}`} className="tweet">
-        <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
+        <img src={avatar} alt={`Avatar of ${first_name}`} className="avatar" />
 
         <div className="tweet-info">
           <div>
-            <span>{name}</span>
+            <span>{first_name}</span>
             <div>{formatDate(timestamp)} </div>
-            {parent && (
+            {parent != null ? (
               <button
                 className="replying-to"
                 onClick={e => this.toParent(e, parent.id)}
               >
-                Replying to @{parent.author}
+                Replying to @{parent.first_name}
               </button>
-            )}
+            ) : "" }
             <p>{text}</p>
           </div>
 
           <div className="tweet-icons">
             <TiArrowBackOutline className="tweet-icon" />
             {/* show number only if it's not zero */}
-            <span>{replies !== 0 && replies} </span>
+            {/* <span>{replies.lengtweetth !== 0 ? replies: []} </span> */}
             <button className="heart-button" onClick={this.handleLike}>
               {hasLiked === true ? (
                 <TiHeartFullOutline color="#e0245e" className="tweet-icon" />
@@ -86,7 +86,7 @@ class Tweet extends Component {
                 <TiHeartOutline className="tweet-icon" />
               )}
             </button>
-            <span>{likes !== 0 && likes} </span>
+            <span>{likes.length !== 0 && likes} </span>
             <FaRetweet className="tweet-icon" />
           </div>
         </div>
@@ -96,14 +96,10 @@ class Tweet extends Component {
 }
 
 //id comes from the props passed by a parent component
-function mapStateToProps({ authedUser, users, tweets }, { id }) {
-  const tweet = tweets[id]; //getting the specific tweet by its id
-  const parentTweet = tweet ? tweets[tweet.replyingTo] : null; //check if the specific tweet is a reply to another one. If so, get information about that parent tweet
-
+function mapStateToProps({ tweets }, { id }) {
   return {
-    authedUser,
-    tweet: tweet //making sure a tweet exists
-      ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
+    tweet: tweets[id] !== null //making sure a tweet exists
+      ? formatTweet(tweets, tweets[id])
       : null
   };
 }

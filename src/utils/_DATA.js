@@ -212,9 +212,12 @@ export async function _getUsers () {
       dict[user.id] = {
         id: user.id,
         name: user.name,
+        firstName: user.first_name,
+        lastName: user.last_name,
         username: user.username,
-        avatarURL: 'https://tylermcginnis.com/would-you-rather/dan.jpg',
+        avatarURL: user.avatar,
         tweets: user.tweets,
+        email: user.email,
       }
     });
     console.log("users dict:", dict, "\n\n");
@@ -224,20 +227,21 @@ export async function _getUsers () {
 
 export async function _getTweets () {
   return await axios.get('http://192.168.1.160:8000/tweets/').then(response => {
+    // console.log("tweest are:\n", response.data, "\n")
     return response.data.map(tweet => convTweetToClient(tweet));
   }).then(tweets => {
     let dict = {};
     tweets.forEach(tweet => dict[tweet.id] = tweet);
-    console.log("dict:", dict, "\n\n");
+    
     return dict;
   });
 }
 
 function convTweetToClient(tweet){
   return {
-      name: tweet.first_name,
+      first_name: tweet.user.first_name,
       author: 1,
-      avatar: tweet.avatar,
+      avatar: tweet.user.avatar,
       timestamp: tweet.created,
       text: tweet.text,
       hasLiked: tweet.hasLiked,

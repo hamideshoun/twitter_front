@@ -21,8 +21,8 @@ export default function Nav() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/settings" activeClassName="active">
-            Settings
+          <NavLink to='profile' activeClassName="active">
+            Profile
           </NavLink>
         </li>
         <li>
