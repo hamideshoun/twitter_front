@@ -1,3 +1,4 @@
+const axios = require('axios').default;
 let users = {
   sarah_edo: {
     id: "sarah_edo",
@@ -202,16 +203,47 @@ let tweets = {
   },
 }
 
-export function _getUsers () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
-  })
+export async function _getUsers () {
+  return await axios.get('http://192.168.1.160:8000/users/').then(response => response.data).then(users => {
+    let dict = {};
+    users.forEach(user => {
+      dict[user.id] = {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        avatarURL: 'https://tylermcginnis.com/would-you-rather/dan.jpg',
+        tweets: user.tweets,
+      }
+    });
+    console.log("users dict:", dict, "\n\n");
+    return dict;
+  });
 }
 
-export function _getTweets () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...tweets}), 1000)
-  })
+export async function _getTweets () {
+  return await axios.get('http://192.168.1.160:8000/tweets/').then(response => {
+    return response.data.map(tweet => convTweetToClient(tweet));
+  }).then(tweets => {
+    let dict = {};
+    tweets.forEach(tweet => dict[tweet.id] = tweet);
+    console.log("dict:", dict, "\n\n");
+    return dict;
+  });
+}
+
+function convTweetToClient(tweet){
+  return {
+      name: tweet.first_name,
+      author: 1,
+      avatar: tweet.avatar,
+      timestamp: tweet.created,
+      text: tweet.text,
+      hasLiked: tweet.hasLiked,
+      likes: tweet.likes.users.map(user => user.id),
+      replies: [],
+      id: tweet.id,
+      parent: tweet.parent,
+  }
 }
 
 export function _saveLikeToggle ({ id, hasLiked, authedUser }) {
