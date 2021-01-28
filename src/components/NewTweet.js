@@ -4,10 +4,10 @@ import { post } from "../utils/axios_with_token"
 import { Redirect } from "react-router-dom";
 
 class NewTweet extends Component {
-  state = {
-    text: "",
-    parent: undefined,
-  };
+  constructor(props){
+    super(props);
+    this.state = {text: '', parent: props.id}
+  }
 
   handleChange = e => {
     const text = e.target.value;
@@ -21,7 +21,8 @@ class NewTweet extends Component {
     e.preventDefault();
     const { text, parent } = this.state;
     post('/tweets/', {text, parent}).then(response => {
-      this.props.history.push("/")
+      this.setState({text: ''});
+      this.props.history.push(`/tweet/${response.data.id}/`)
     }).catch(err => {
       if (err.response.status === 401)
         this.props.history.push('/login')

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { get } from "../utils/axios_with_token"
 
 import Tweet from "./Tweet";
@@ -30,16 +29,16 @@ class TweetPage extends Component {
       <div>
         <Tweet tweet={this.state.tweet} />
         {/* passing the parent tweet id */}
-        <NewTweet id={this.state.tweet.id} />
+        <NewTweet id={this.state.tweet.id} history={this.props.history} />
 
-        {/* {replies.length !== 0 && <h3 className="center">Replies</h3>}
+        {this.state.tweet.replies2.length !== 0 && <h3 className="center">Replies</h3>}
         <ul>
-          {replies.map(replyId => (
-            <li key={replyId}>
-              <Tweet id={replyId} />
+          {this.state.tweet.replies2.map(reply => (
+            <li key={reply.id}>
+              <Tweet tweet={reply} />
             </li>
           ))}
-        </ul> */}
+        </ul>
       </div>
     );
   }
